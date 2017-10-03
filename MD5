@@ -1,0 +1,12 @@
+e017563bdd2da9f520a754e0e045bbd4 *DESCRIPTION
+3abfecb9f9e9c26e46b2ecee596b0703 *NAMESPACE
+ae593103b2de750c8ee0afe43aabc5d9 *R/tidyboot.R
+27a899863f3cadd8af202eae278a042c *R/util.R
+72f355bc7610ac53f06157fb76d5aa39 *README.md
+0feb8e611a52501dcec96d2a14213081 *man/ci_lower.Rd
+381c629ac621e4f03849b1de93f45c54 *man/ci_upper.Rd
+18b596d0f0db2cb51c1b124f4aa53288 *man/tidyboot.Rd
+55341bbbb7e6bccde5295932e4b2c2f2 *man/tidyboot.data.frame.Rd
+4a752f8893a74a425912b4f3500089e6 *man/tidyboot.logical.Rd
+9541c28e951c9dcb590cd69507383b28 *man/tidyboot.numeric.Rd
+98b12e8955caf96c47ddc858f9f48fce *man/tidyboot_mean.Rd
