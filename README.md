@@ -8,6 +8,12 @@ tidyboot
 Installation
 ------------
 
+You can install tidyboot from CRAN with:
+
+``` r
+install.packages("tidyboot")
+```
+
 You can install tidyboot from github with:
 
 ``` r
@@ -32,10 +38,10 @@ df %>%
   group_by(condition) %>%
   tidyboot_mean(column = value)
 #> # A tibble: 2 x 6
-#>   condition     n empirical_mean    ci_lower       mean   ci_upper
-#>       <dbl> <int>          <dbl>       <dbl>      <dbl>      <dbl>
-#> 1         1   500     0.05639347 -0.03881079 0.05229717 0.05229717
-#> 2         2   500     1.95743720  1.68409890 1.95851068 1.95851068
+#>   condition     n empirical_stat  ci_lower        mean   ci_upper
+#>       <dbl> <int>          <dbl>     <dbl>       <dbl>      <dbl>
+#> 1         1   500    -0.02292831 -0.114664 -0.02196269 0.06232765
+#> 2         2   500     2.02781100  1.755141  2.02955494 2.30626508
 ```
 
 For bootstrapping any statistic and any properties of its sampling distribution, use `tidyboot()`.
@@ -50,10 +56,10 @@ df %>%
   tidyboot(column = value, summary_function = median,
            statistics_functions = list("mean" = mean, "sd" = sd))
 #> # A tibble: 2 x 5
-#>   condition     n empirical_median      mean        sd
-#>       <dbl> <int>            <dbl>     <dbl>     <dbl>
-#> 1         1   500        0.1221993 0.1142618 0.0690967
-#> 2         2   500        1.9321905 1.9554029 0.1667608
+#>   condition     n empirical_median         mean         sd
+#>       <dbl> <int>            <dbl>        <dbl>      <dbl>
+#> 1         1   500     -0.006468345 -0.005842842 0.05544625
+#> 2         2   500      1.995112455  2.011381756 0.20658963
 ```
 
 ``` r
@@ -62,8 +68,8 @@ df %>%
   tidyboot(summary_function = function(x) x %>% summarise(median = median(value)),
            statistics_functions = function(x) x %>% summarise_at(vars(median), funs(mean, sd)))
 #> # A tibble: 2 x 5
-#>   condition     n empirical_median      mean         sd
-#>       <dbl> <int>            <dbl>     <dbl>      <dbl>
-#> 1         1   500        0.1221993 0.1111892 0.06761301
-#> 2         2   500        1.9321905 1.9492258 0.16817787
+#>   condition     n empirical_median         mean         sd
+#>       <dbl> <int>            <dbl>        <dbl>      <dbl>
+#> 1         1   500     -0.006468345 -0.006287976 0.05505858
+#> 2         2   500      1.995112455  2.006877243 0.20645516
 ```
