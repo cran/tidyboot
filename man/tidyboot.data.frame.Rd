@@ -4,8 +4,14 @@
 \alias{tidyboot.data.frame}
 \title{Non-parametric bootstrap for data frames}
 \usage{
-\method{tidyboot}{data.frame}(data, column = NULL, summary_function = mean,
-  statistics_functions, nboot = 1000, ...)
+\method{tidyboot}{data.frame}(
+  data,
+  column = NULL,
+  summary_function = mean,
+  statistics_functions,
+  nboot = 1000,
+  ...
+)
 }
 \arguments{
 \item{data}{A data frame.}
@@ -35,11 +41,16 @@ Computes arbitrary bootstrap statistics on univariate data.
 \examples{
 ## Mean and 95\% confidence interval for 500 samples from two different normal distributions
 require(dplyr)
-gauss1 <- data_frame(value = rnorm(500, mean = 0, sd = 1), condition = 1)
-gauss2 <- data_frame(value = rnorm(500, mean = 2, sd = 3), condition = 2)
+gauss1 <- tibble(value = rnorm(500, mean = 0, sd = 1), condition = 1)
+gauss2 <- tibble(value = rnorm(500, mean = 2, sd = 3), condition = 2)
 df <- bind_rows(gauss1, gauss2)
+
+mean_ci_funs <- list("ci_lower" = ci_lower, "mean" = mean, "ci_upper" = ci_upper)
 df \%>\% group_by(condition) \%>\%
-  tidyboot(summary_function = function(x) x \%>\% summarise(mean = mean(value)),
+  tidyboot(column = value, summary_function = mean, statistics_functions = mean_ci_funs)
+
+df \%>\% group_by(condition) \%>\%
+  tidyboot(summary_function = function(x) x \%>\% summarise(stat = mean(value)),
            statistics_functions = function(x) x \%>\%
-           summarise_at(vars(mean), funs(ci_upper, mean, ci_lower)))
+             summarise(across(stat, mean_ci_funs, .names = "{.fn}")))
 }
